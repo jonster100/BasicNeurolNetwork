@@ -3,6 +3,7 @@ import java.util.LinkedList;
 public class Neuron {
 
 	private String id;
+	int bias;
 	private LinkedList<Connection> inputNeuronConnections;
 	private LinkedList<Connection> outputNeuronConnections;
 	private ActivationFunction activationFunction;
@@ -12,6 +13,7 @@ public class Neuron {
 		inputNeuronConnections = new LinkedList<Connection>();
 		outputNeuronConnections = new LinkedList<Connection>();
 		id = tId;
+		bias=0;
 	}
 
 	public String getId() {
@@ -31,7 +33,7 @@ public class Neuron {
 	}
 
 	private int startActivationFunction(int sumOfInput) {
-		return activationFunction.calculateOutput();
+		return activationFunction.calculateOutput(sumOfInput,bias);
 	}
 
 	private int sumInputConnections() {

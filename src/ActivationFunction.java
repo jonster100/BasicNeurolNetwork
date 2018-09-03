@@ -1,5 +1,5 @@
 
 public interface ActivationFunction {
 	
-	public int calculateOutput();
+	public int calculateOutput(int sumWeight,int bias);
 }
