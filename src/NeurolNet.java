@@ -5,17 +5,17 @@ public class NeurolNet {
 
 	public NeurolNet() {
 		neuronLayers = new LinkedList<NeurolNetLayer>();
-		this.setupNeuronLayers(2);
 	}
 
-	private void setupNeuronLayers(int noLayers) {
+	public void setupNeuronLayers(int noLayers) {
 		for (int i = 0; i < noLayers; i++) {
-			NeurolNetLayer newLayer = new NeurolNetLayer("", 3);
-			neuronLayers.add(new NeurolNetLayer("", 3));
+			NeurolNetLayer newLayer = new NeurolNetLayer("Hidden", 3);
+			neuronLayers.add(newLayer);
 			if (neuronLayers.size() != 0) {
 				this.setupNeuronConnections(neuronLayers.get(neuronLayers.size() - 1), newLayer);
 			}
 		}
+		this.createOutputLayer();
 	}
 
 	// this method needs more alterations
@@ -34,9 +34,16 @@ public class NeurolNet {
 		}
 	}
 	
-	private void createInputLayer(){}
+	public void createInputLayer(int noInputNeurons, int[] inputWeights){
+		NeurolNetLayer newLayer = new NeurolNetLayer("Input", noInputNeurons);
+		neuronLayers.add(newLayer);
+		this.setupNeuronLayers(4);
+	}
 	
-	private void createOutputLayer(){}
+	private void createOutputLayer(){
+		NeurolNetLayer newLayer = new NeurolNetLayer("Output", 1);
+		neuronLayers.add(newLayer);
+	}
 
 	public void runNeurolNet() {
 		for (NeurolNetLayer nnL : neuronLayers) {

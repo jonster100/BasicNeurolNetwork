@@ -37,4 +37,10 @@ public class NeurolNetLayer {
 			}
 		}
 	}
+	
+	public void setInputLayerConnections(int[] inputData){
+		for(int i=0;i<neuronLayer.size();i++){
+			neuronLayer.get(i).setOutputConnections(inputData[i]);
+		}
+	}
 }

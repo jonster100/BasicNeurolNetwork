@@ -50,9 +50,11 @@ public class Neuron {
 		return total;
 	}
 
-	private void setOutputConnections(int newWeight) {
-		for (Connection c : outputNeuronConnections) {
-			c.setWeight(newWeight);
+	public void setOutputConnections(int newWeight) {
+		if (outputNeuronConnections.size() != 0) {
+			for (Connection c : outputNeuronConnections) {
+				c.setWeight(newWeight);
+			}
 		}
 	}
 }
