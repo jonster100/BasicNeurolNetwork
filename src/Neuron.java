@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Neuron {
 
@@ -13,7 +14,8 @@ public class Neuron {
 		inputNeuronConnections = new LinkedList<Connection>();
 		outputNeuronConnections = new LinkedList<Connection>();
 		id = tId;
-		bias=0;
+		Random noGen = new Random();// temp
+		bias = noGen.nextInt(10);// temp
 	}
 
 	public String getId() {
@@ -28,24 +30,28 @@ public class Neuron {
 		outputNeuronConnections.add(c);
 	}
 
+	public int getInputConnectionsSize() {
+		return inputNeuronConnections.size();
+	}
+
 	public void runNeuron() {
 		this.setOutputConnections(this.startActivationFunction(this.sumInputConnections()));
 	}
 
 	private int startActivationFunction(int sumOfInput) {
-		return activationFunction.calculateOutput(sumOfInput,bias);
+		return activationFunction.calculateOutput(sumOfInput, bias);
 	}
 
 	private int sumInputConnections() {
 		int total = 0;
-		for(Connection c:inputNeuronConnections){
-			total+=c.getWeight();
+		for (Connection c : inputNeuronConnections) {
+			total += c.getWeight();
 		}
 		return total;
 	}
 
 	private void setOutputConnections(int newWeight) {
-		for(Connection c:outputNeuronConnections){
+		for (Connection c : outputNeuronConnections) {
 			c.setWeight(newWeight);
 		}
 	}
