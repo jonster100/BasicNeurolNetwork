@@ -1,6 +1,6 @@
 
 public class Connection {
-	private int weight;
+	private float weight;
 	protected Neuron toNeuron;
 	protected Neuron fromNeuron;
 
@@ -10,11 +10,11 @@ public class Connection {
 		fromNeuron = fN;
 	}
 
-	public void setWeight(int tW) {
+	public void setWeight(float tW) {
 		weight = tW;
 	}
 
-	public int getWeight() {
+	public float getWeight() {
 		return weight;
 	}
 }

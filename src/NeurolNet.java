@@ -33,17 +33,17 @@ public class NeurolNet {
 			}
 		}
 	}
-	
-	public void createInputLayer(int noInputNeurons, int[] inputWeights){
+
+	public void createInputLayer(int noInputNeurons, int[] inputWeights) {
 		NeurolNetLayer newLayer = new NeurolNetLayer("Input", noInputNeurons);
 		neuronLayers.add(newLayer);
 		this.setupNeuronLayers(4);
 	}
-	
-	private void createOutputLayer(){
+
+	private void createOutputLayer() {
 		NeurolNetLayer newLayer = new NeurolNetLayer("Output", 1);
 		neuronLayers.add(newLayer);
-		this.setupNeuronConnections(neuronLayers.get(neuronLayers.indexOf(newLayer)-1),newLayer);
+		this.setupNeuronConnections(neuronLayers.get(neuronLayers.indexOf(newLayer) - 1), newLayer);
 	}
 
 	public void runNeurolNet() {
@@ -51,12 +51,21 @@ public class NeurolNet {
 			nnL.runNeuronLayer();
 		}
 	}
-	
-	public void runBackpropagation(int actual){
-		int outputResult = neuronLayers.getLast().getOutputResult();
-		int errorMargin = outputResult-actual;
-		for(NeurolNetLayer nnL:neuronLayers){
-			nnL.updateNeuronsBias(outputResult);
+
+	public void runBackpropagation(float actual) {
+		float outputResult = neuronLayers.getLast().getOutputResult();
+		float oldErrorMargin = outputResult - actual;
+		float newErrorMargin = 0;
+		float learningRate =1;//this needs to be adaptable so needs changing
+		while (newErrorMargin >= oldErrorMargin) {
+			for (NeurolNetLayer nnL : neuronLayers) {
+				nnL.updateNeuronsBias(outputResult,learningRate);
+			}
+			this.runNeurolNet();
+			newErrorMargin+=neuronLayers.getLast().getOutputResult()-actual;
 		}
+		System.out.println("output result: "+outputResult);
+		System.out.println("old error margin result: "+oldErrorMargin);
+		System.out.println("new error margin result: "+newErrorMargin);
 	}
 }

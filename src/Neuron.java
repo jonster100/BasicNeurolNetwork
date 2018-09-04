@@ -4,7 +4,7 @@ import java.util.Random;
 public class Neuron {
 
 	private String id;
-	int bias;
+	float bias;
 	private LinkedList<Connection> inputNeuronConnections;
 	private LinkedList<Connection> outputNeuronConnections;
 	private ActivationFunction activationFunction;
@@ -15,7 +15,7 @@ public class Neuron {
 		outputNeuronConnections = new LinkedList<Connection>();
 		id = tId;
 		Random noGen = new Random();// temp
-		bias = noGen.nextInt(100);// temp
+		bias = noGen.nextFloat();// temp
 	}
 
 	public String getId() {
@@ -38,7 +38,7 @@ public class Neuron {
 		this.setOutputConnections(this.startActivationFunction(this.sumInputConnections()));
 	}
 
-	private int startActivationFunction(int sumOfInput) {
+	private float startActivationFunction(int sumOfInput) {
 		return activationFunction.calculateOutput(sumOfInput, bias);
 	}
 
@@ -50,7 +50,7 @@ public class Neuron {
 		return total;
 	}
 
-	public void setOutputConnections(int newWeight) {
+	public void setOutputConnections(float newWeight) {
 		if (outputNeuronConnections.size() != 0) {
 			for (Connection c : outputNeuronConnections) {
 				c.setWeight(newWeight);
@@ -58,8 +58,8 @@ public class Neuron {
 		}
 	}
 
-	public void updateBias(int output) {
+	public void updateBias(float output,float learningRate) {
 		Backpropagation back = new Backpropagation();
-		bias+=back.optimise(bias, output);
+		bias=back.optimise(bias, output,learningRate);
 	}
 }
