@@ -15,7 +15,7 @@ public class Neuron {
 		outputNeuronConnections = new LinkedList<Connection>();
 		id = tId;
 		Random noGen = new Random();// temp
-		bias = noGen.nextInt(10);// temp
+		bias = noGen.nextInt(100);// temp
 	}
 
 	public String getId() {
@@ -42,7 +42,7 @@ public class Neuron {
 		return activationFunction.calculateOutput(sumOfInput, bias);
 	}
 
-	private int sumInputConnections() {
+	public int sumInputConnections() {
 		int total = 0;
 		for (Connection c : inputNeuronConnections) {
 			total += c.getWeight();
@@ -56,5 +56,10 @@ public class Neuron {
 				c.setWeight(newWeight);
 			}
 		}
+	}
+
+	public void updateBias(int output) {
+		Backpropagation back = new Backpropagation();
+		bias+=back.optimise(bias, output);
 	}
 }

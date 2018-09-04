@@ -12,7 +12,7 @@ public class NeurolNet {
 			NeurolNetLayer newLayer = new NeurolNetLayer("Hidden", 3);
 			neuronLayers.add(newLayer);
 			if (neuronLayers.size() != 0) {
-				this.setupNeuronConnections(neuronLayers.get(neuronLayers.size() - 1), newLayer);
+				this.setupNeuronConnections(neuronLayers.get(neuronLayers.indexOf(newLayer) - 1), newLayer);
 			}
 		}
 		this.createOutputLayer();
@@ -43,11 +43,20 @@ public class NeurolNet {
 	private void createOutputLayer(){
 		NeurolNetLayer newLayer = new NeurolNetLayer("Output", 1);
 		neuronLayers.add(newLayer);
+		this.setupNeuronConnections(neuronLayers.get(neuronLayers.indexOf(newLayer)-1),newLayer);
 	}
 
 	public void runNeurolNet() {
 		for (NeurolNetLayer nnL : neuronLayers) {
 			nnL.runNeuronLayer();
+		}
+	}
+	
+	public void runBackpropagation(int actual){
+		int outputResult = neuronLayers.getLast().getOutputResult();
+		int errorMargin = outputResult-actual;
+		for(NeurolNetLayer nnL:neuronLayers){
+			nnL.updateNeuronsBias(outputResult);
 		}
 	}
 }

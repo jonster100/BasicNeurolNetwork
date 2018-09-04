@@ -37,10 +37,28 @@ public class NeurolNetLayer {
 			}
 		}
 	}
-	
-	public void setInputLayerConnections(int[] inputData){
-		for(int i=0;i<neuronLayer.size();i++){
+
+	public void setInputLayerConnections(int[] inputData) {
+		for (int i = 0; i < neuronLayer.size(); i++) {
 			neuronLayer.get(i).setOutputConnections(inputData[i]);
 		}
+	}
+
+	public void updateNeuronsBias(int output) {
+		for (Neuron n : neuronLayer) {
+			n.updateBias(output);
+		}
+	}
+
+	public int getOutputResult() {
+		int noConnections=0;
+		int toBeReturned = 0;
+		if (id.equals("Output")) {
+			for (Neuron n : neuronLayer) {
+				toBeReturned += n.sumInputConnections();
+				noConnections+=n.getInputConnectionsSize();
+			}
+		}
+		return toBeReturned/noConnections;
 	}
 }
