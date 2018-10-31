@@ -45,7 +45,7 @@ public class Neuron {
 	public int sumInputConnections() {
 		int total = 0;
 		for (Connection c : inputNeuronConnections) {
-			total += c.getWeight();
+			total += c.getOutputWeight();
 		}
 		return total;
 	}
@@ -53,13 +53,16 @@ public class Neuron {
 	public void setOutputConnections(double newWeight) {
 		if (outputNeuronConnections.size() != 0) {
 			for (Connection c : outputNeuronConnections) {
-				c.setWeight(newWeight);
+				c.setInput(newWeight);
 			}
 		}
 	}
 
-	public void updateBias(float output,float learningRate) {
+	public void updateWeights(float output,float learningRate) {
 		Backpropagation back = new Backpropagation();
 		bias=back.optimise(bias, output,learningRate);
+		for(Connection c:inputNeuronConnections){
+			c.runWeightBackpropagation(output, learningRate);
+		}
 	}
 }

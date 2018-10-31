@@ -46,7 +46,7 @@ public class NeurolNetLayer {
 
 	public void updateNeuronsBias(float output,float learningRate) {
 		for (Neuron n : neuronLayer) {
-			n.updateBias(output,learningRate);
+			n.updateWeights(output,learningRate);
 		}
 	}
 
