@@ -54,20 +54,26 @@ public class NeurolNet {
 	}
 
 	public void runBackpropagation(double actual) {
-		double outputResult = neuronLayers.getLast().getOutputResult();
-		double oldErrorMargin = outputResult - actual;
+		double oldOutputResult = neuronLayers.getLast().getOutputResult();
+		double newOutputResult = 0;
+		double oldErrorMargin = oldOutputResult - actual;
 		double newErrorMargin = 0;
-		double learningRate =10;//this needs to be adaptable so needs changing
-		while (newErrorMargin >= oldErrorMargin) {
+		double learningRate =3;//this needs to be adaptable so needs changing
+		int noIterations = 0;
+		while (newOutputResult <= actual) {
 			for (NeurolNetLayer nnL : neuronLayers) {
-				nnL.updateNeuronsBias(outputResult,learningRate);
+				nnL.updateNeuronsBias(oldOutputResult,learningRate);
 			}
 			this.runNeurolNet();
+			newOutputResult=0;
 			newErrorMargin=0;
-			newErrorMargin+=neuronLayers.getLast().getOutputResult()-actual;
+			newOutputResult+=neuronLayers.getLast().getOutputResult();
+			newErrorMargin+=newOutputResult-actual;
+			noIterations+=1;
+			System.out.println(noIterations+"--output result: "+newOutputResult);
+			System.out.println(noIterations+"--new error margin result: "+newErrorMargin);
 		}
-		System.out.println("output result: "+outputResult);
-		System.out.println("old error margin result: "+oldErrorMargin);
-		System.out.println("new error margin result: "+newErrorMargin);
+		System.out.println("final output result: "+newOutputResult);
+		System.out.println("final margin result: "+newErrorMargin);
 	}
 }
