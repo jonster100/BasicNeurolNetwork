@@ -52,15 +52,15 @@ public class NeurolNetLayer {
 		}
 	}
 
-	public void updateNeuronsBias(float output,float learningRate) {
+	public void updateNeuronsBias(double output,double learningRate) {
 		for (Neuron n : neuronLayer) {
 			n.updateWeights(output,learningRate);
 		}
 	}
 
-	public int getOutputResult() {
+	public double getOutputResult() {
 		int noConnections=0;
-		int toBeReturned = 0;
+		double toBeReturned = 0;
 		if (id.equals("Output")) {
 			for (Neuron n : neuronLayer) {
 				toBeReturned += n.sumInputConnections();

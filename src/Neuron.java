@@ -38,12 +38,12 @@ public class Neuron {
 		this.setOutputConnections(this.startActivationFunction(this.sumInputConnections()));
 	}
 
-	private double startActivationFunction(int sumOfInput) {
+	private double startActivationFunction(double sumOfInput) {
 		return activationFunction.calculateOutput(sumOfInput, bias);
 	}
 
-	public int sumInputConnections() {
-		int total = 0;
+	public double sumInputConnections() {
+		double total = 0;
 		for (Connection c : inputNeuronConnections) {
 			total += c.getOutputWeight();
 		}
@@ -58,7 +58,7 @@ public class Neuron {
 		}
 	}
 
-	public void updateWeights(float output,float learningRate) {
+	public void updateWeights(double output,double learningRate) {
 		Backpropagation back = new Backpropagation();
 		bias=back.optimise(bias, output,learningRate);
 		for(Connection c:inputNeuronConnections){

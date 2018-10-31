@@ -53,16 +53,17 @@ public class NeurolNet {
 		}
 	}
 
-	public void runBackpropagation(float actual) {
-		float outputResult = neuronLayers.getLast().getOutputResult();
-		float oldErrorMargin = outputResult - actual;
-		float newErrorMargin = 0;
-		float learningRate =1;//this needs to be adaptable so needs changing
+	public void runBackpropagation(double actual) {
+		double outputResult = neuronLayers.getLast().getOutputResult();
+		double oldErrorMargin = outputResult - actual;
+		double newErrorMargin = 0;
+		double learningRate =10;//this needs to be adaptable so needs changing
 		while (newErrorMargin >= oldErrorMargin) {
 			for (NeurolNetLayer nnL : neuronLayers) {
 				nnL.updateNeuronsBias(outputResult,learningRate);
 			}
 			this.runNeurolNet();
+			newErrorMargin=0;
 			newErrorMargin+=neuronLayers.getLast().getOutputResult()-actual;
 		}
 		System.out.println("output result: "+outputResult);

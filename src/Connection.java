@@ -14,7 +14,7 @@ public class Connection {
 		fromNeuron = fN;
 	}
 	
-	public void runWeightBackpropagation(float output,float learningRate) {
+	public void runWeightBackpropagation(double output,double learningRate) {
 		Backpropagation back = new Backpropagation();
 		weight=back.optimise(weight, output,learningRate);
 	}
