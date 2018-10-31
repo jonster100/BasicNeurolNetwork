@@ -2,16 +2,17 @@ import java.util.LinkedList;
 
 public class NeurolNet {
 	private LinkedList<NeurolNetLayer> neuronLayers;
-
+	
+	
 	public NeurolNet() {
 		neuronLayers = new LinkedList<NeurolNetLayer>();
 	}
 
 	public void setupNeuronLayers(int noLayers) {
 		for (int i = 0; i < noLayers; i++) {
-			NeurolNetLayer newLayer = new NeurolNetLayer("Hidden", 3);
+			NeurolNetLayer newLayer = new NeurolNetLayer("Hidden", 8);
 			neuronLayers.add(newLayer);
-			if (neuronLayers.size() != 0) {
+			if (neuronLayers.size() > 1) {
 				this.setupNeuronConnections(neuronLayers.get(neuronLayers.indexOf(newLayer) - 1), newLayer);
 			}
 		}
@@ -35,9 +36,9 @@ public class NeurolNet {
 	}
 
 	public void createInputLayer(int noInputNeurons, int[] inputWeights) {
-		NeurolNetLayer newLayer = new NeurolNetLayer("Input", noInputNeurons);
+		NeurolNetLayer newLayer = new NeurolNetLayer("Input", noInputNeurons,inputWeights);
 		neuronLayers.add(newLayer);
-		this.setupNeuronLayers(4);
+		this.setupNeuronLayers(10);
 	}
 
 	private void createOutputLayer() {

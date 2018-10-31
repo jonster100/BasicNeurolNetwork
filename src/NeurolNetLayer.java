@@ -8,12 +8,18 @@ public class NeurolNetLayer {
 		id = tId;
 		neuronLayer = new LinkedList<Neuron>();
 		this.setupNeuronLayer(noNeurons);
-
 	}
-
+	
+	public NeurolNetLayer(String tId, int noNeurons,int[] inputData) {
+		id = tId;
+		neuronLayer = new LinkedList<Neuron>();
+		this.setupNeuronLayer(noNeurons);
+		this.setInputLayerData(inputData);
+	}
+	
 	private void setupNeuronLayer(int noNeurons) {
 		for (int i = 0; i < noNeurons; i++) {
-			neuronLayer.add(new Neuron("", new testActivationFunction()));
+			neuronLayer.add(new Neuron(id, new SigmoidActivationFunction()));
 		}
 	}
 
@@ -38,9 +44,11 @@ public class NeurolNetLayer {
 		}
 	}
 
-	public void setInputLayerConnections(int[] inputData) {
+	private void setInputLayerData(int[] inputData) {
 		for (int i = 0; i < neuronLayer.size(); i++) {
-			neuronLayer.get(i).setOutputConnections(inputData[i]);
+			Connection c = new Connection(null,neuronLayer.get(i));
+			c.setInput(inputData[i]);
+			neuronLayer.get(i).addInputConnection(c);
 		}
 	}
 

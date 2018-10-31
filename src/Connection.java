@@ -20,7 +20,7 @@ public class Connection {
 	}
 	
 	public void setInput(double tW) {
-		weight = tW;
+		input = tW;
 	}
 
 	public double getOutputWeight() {
