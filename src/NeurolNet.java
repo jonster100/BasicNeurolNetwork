@@ -55,14 +55,14 @@ public class NeurolNet {
 
 	public void runBackpropagation(double actual) {
 		double oldOutputResult = neuronLayers.getLast().getOutputResult();
-		double newOutputResult = 0;
+		double newOutputResult = neuronLayers.getLast().getOutputResult();;
 		double oldErrorMargin = oldOutputResult - actual;
 		double newErrorMargin = 0;
-		double learningRate =3;//this needs to be adaptable so needs changing
+		double learningRate =0.2;//this needs to be adaptable so needs changing
 		int noIterations = 0;
 		while (newOutputResult <= actual) {
 			for (NeurolNetLayer nnL : neuronLayers) {
-				nnL.updateNeuronsBias(oldOutputResult,learningRate);
+				nnL.updateNeuronsBias(newOutputResult,learningRate);
 			}
 			this.runNeurolNet();
 			newOutputResult=0;
